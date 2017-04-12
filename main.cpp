@@ -15,8 +15,9 @@
 
 int main(int argc, char const *argv[])
 {
-	Population population = Population(REPR, 10, 10, 3);
+	Population population = Population(REPR, 1000, 10, 3);
 	population.init(-10, 10);
+
 
 	return 0;
 }

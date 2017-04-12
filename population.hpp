@@ -61,10 +61,8 @@ public:
 
 	void gen2fen(double* x, int index){
 		for (int i = 0; i < dimension; ++i){
-			dpopulation[i] = bin2double(index * i * len );
-			cout << dpopulation[i] << " ";
+			dpopulation[i] = bin2double(index*len*dimension + i*len );
 		}
-		cout << endl;
 	}
 
 	void init(int lmn, int lmx){
@@ -85,11 +83,32 @@ public:
 			for (int i = 0; i < pop_size; ++i){
 				gen2fen(dpopulation, i);
 				aptitude[i] = testFunction(dpopulation, dimension, 0);
-				// cout << aptitude[i] << "\n---------\n";
 			}
 			
 			return;
 		}
+	}
+
+	bool* getBinaryElement(int index){
+		bool* item = new bool[len * dimension];
+		index *= len * dimension;
+
+		for (int i = 0; i < len * dimension; ++i)
+			item[i] = bpopulation[index + i];
+
+		return item;
+	}
+
+	double* getDoubleElement(){
+		return NULL;
+	}
+
+	double getAptitude(int index){
+		return aptitude[index];
+	}
+
+	int getLen(){
+		return len;
 	}
 	
 };

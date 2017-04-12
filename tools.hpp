@@ -19,3 +19,10 @@ double abs(double x){
 		return -x;
 	return x;
 }
+
+double mean(double* data, int size){
+	double m = 0.0;
+	for (int i = 0; i < size; ++i) m += data[i];
+
+	return m / size;
+}
