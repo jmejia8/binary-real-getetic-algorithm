@@ -1,0 +1,6 @@
+class TwoPontCrossover
+{
+public:
+	TwoPontCrossover();
+	
+};
