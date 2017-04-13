@@ -2,6 +2,8 @@
 #define PI 3.1415926535897932384626433832795
 #endif
 
+int evals = 0;
+
 double sphere(double* x, int dim) {
 	double s = 0.0;
 

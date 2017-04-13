@@ -2,7 +2,7 @@ class Population
 {
 private:
 	// 0 binary, 1 = real.
-	int representation = 0;
+	int representation;
 	int pop_size;
 	int dimension;
 	bool* bpopulation = NULL;
@@ -107,8 +107,13 @@ public:
 		return aptitude[index];
 	}
 
+	double* getAllApt(){
+		return aptitude;
+	}
+
 	int getLen(){
 		return len;
 	}
+
 	
 };

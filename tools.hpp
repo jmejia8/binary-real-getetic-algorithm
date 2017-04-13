@@ -20,6 +20,17 @@ double abs(double x){
 	return x;
 }
 
+int maxx(double* list, int size){
+	int m = 0;
+	for (int i = 1; i < size; ++i) {
+		if (list[i] > list[m] ) {
+			m = i;
+		}
+	}
+
+	return m;
+}
+
 double mean(double* data, int size){
 	double m = 0.0;
 	for (int i = 0; i < size; ++i) m += data[i];
