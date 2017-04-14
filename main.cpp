@@ -19,7 +19,7 @@
 
 int main(int argc, char const *argv[])
 {
-	int pop_size 	= 10,
+	int pop_size 	= 20,
 		dim 	 	= 10,
 		maxEvals	= 100000;
 	double crossP	= 0.9,
@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
 	for (int t = 0; t < 1 and evals < maxEvals; ++t){
 		if (REPR == 0) {
 			stocUnivSelect(population.getAllApt(), parents, pop_size);
-			// TwoPointCrossover(population, parents);
+			TwoPointCrossover(population, parents);
 		}
 
 	}

@@ -1,3 +1,55 @@
+class Binary
+{
+private:
+	int dim, pop_size, len;
+
+	bool* members = NULL;
+	double* aptitude = NULL;
+public:
+	Binary(int d, int ps) : dim(d), pop_size(ps){
+		len = d * pop_size;
+		members = new bool[len];
+		aptitude = new double[pop_size];
+	};
+
+	~Binary(){
+		if (members != NULL)
+			delete[] members;
+	};
+
+	void init(){
+		for (int i = 0; i < len; ++i)
+			members[i] = randint() % 2;
+	}
+
+	double bin2double (bool* t){
+		double v = 0.0;
+		for (int i = 0; i < len; ++i) {
+			if (not t[i]) continue;
+			v += pow(2, len - i - 1);
+		}
+
+		return lmin + v / pow(10, accuracy);
+	}
+
+	bool* getMember(int index){
+		bool* t = new bool[dim];
+		index *= dim;
+		for (int i = 0; i < dim; ++i)
+			t[i] = members[index + i ];
+
+		return t;
+	}
+
+	void insert(bool* element, int position) {
+		position *= dim;
+		for (int i = 0; i < dimension; ++i) 
+			members[position + i] = element[i];
+	}
+	
+};
+
+
 class Population
 {
 private:
@@ -5,23 +57,12 @@ private:
 	int representation;
 	int pop_size;
 	int dimension;
-	bool* bpopulation = NULL;
+	Binary bpopulation;
 	double* dpopulation = NULL;
-	double* aptitude;
 	int accuracy;
 	int len;
 	double lmin, lmax;
 
-	double bin2double (int index){
-		double v = 0.0;
-		for (int i = 0; i < len; ++i) {
-			if (not bpopulation[i + index])
-				continue;
-			v += pow(2, len - i - 1);
-		}
-
-		return lmin + v / pow(10, accuracy);
-	}
 
 public:
 	Population(int repr, int size, int d, int acc) :
@@ -30,7 +71,6 @@ public:
 		dimension (d), 
 		accuracy (acc) 
 	{
-		aptitude = new double[size];
 		switch (repr){
 			case 1:
 				dpopulation = new double[d * size];
@@ -41,8 +81,6 @@ public:
 	} ;
 
 	~Population() {
-		if (bpopulation != NULL)
-			delete[] bpopulation;
 		if (dpopulation != NULL)
 			delete[] dpopulation;
 	};
@@ -59,9 +97,9 @@ public:
 
 	}
 
-	void gen2fen(double* x, int index){
+	void gen2fen(double* x, bool* t){
 		for (int i = 0; i < dimension; ++i){
-			dpopulation[i] = bin2double(index*len*dimension + i*len );
+			dpopulation[i] = bin2double(t, i);
 		}
 	}
 
@@ -73,16 +111,13 @@ public:
 			int L = (int) pow(10, accuracy);
 			L = (int)(log2(L * (lmax - lmin))  + 0.7);
 			len = L;
-			bpopulation = new bool[pop_size * L * dimension];
-			dpopulation = new double[dimension];
 
-
-			for (int i = 0; i < pop_size * L * dimension; ++i)
-				bpopulation[i] = randint() % 2;
+			bpopulation = Binary(dimension * L, pop_size);
+			double* tmp = new double[dimension];
 
 			for (int i = 0; i < pop_size; ++i){
-				gen2fen(dpopulation, i);
-				aptitude[i] = testFunction(dpopulation, dimension, 0);
+				gen2fen(tmp, bpopulation.getMember(i));
+				aptitude[i] = testFunction(tmp, dimension, 0);
 			}
 			
 			return;
