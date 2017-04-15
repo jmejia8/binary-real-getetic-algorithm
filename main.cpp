@@ -12,6 +12,10 @@
 #define ACCURACY 3 
 #endif
 
+#ifndef FUNC
+#define FUNC 0
+#endif
+
 #include "functions.hpp"
 #include "tools.hpp"
 #include "population.hpp"
@@ -19,20 +23,28 @@
 
 int main(int argc, char const *argv[])
 {
-	int pop_size 	= 20,
+	int pop_size 	= 10,
 		dim 	 	= 10,
-		maxEvals	= 100000;
+		maxEvals	= 100000,
+		maxIters   = 15000;
 	double crossP	= 0.9,
 		   mutationP= 0.1;
 
-	Population population = Population(REPR, pop_size, dim, 3);
+	Population population(REPR, pop_size, dim, 3);
 	population.init(-10, 10);
+	// population.show();
 
 	int* parents = new int[pop_size];
-	for (int t = 0; t < 1 and evals < maxEvals; ++t){
+	for (int t = 0; t < maxIters and evals < maxEvals; ++t){
 		if (REPR == 0) {
+			// population.show();
+			// cout << "perro" << endl;
 			stocUnivSelect(population.getAllApt(), parents, pop_size);
-			TwoPointCrossover(population, parents);
+			// cout << "gato" << endl;
+			TwoPointCrossover cross(population, parents, crossP);
+			// cout << "rata" << endl;
+			population.replace(cross.getChildren());
+			// cout << "toro" << endl;
 		}
 
 	}

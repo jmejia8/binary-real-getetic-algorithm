@@ -10,26 +10,19 @@ public:
 		len = d * pop_size;
 		members = new bool[len];
 		aptitude = new double[pop_size];
+		Binary::init();
 	};
 
-	~Binary(){
-		if (members != NULL)
-			delete[] members;
+	Binary() {
+		members = NULL;
+		aptitude = NULL;
 	};
 
 	void init(){
-		for (int i = 0; i < len; ++i)
+		for (int i = 0; i < len; ++i){
 			members[i] = randint() % 2;
-	}
-
-	double bin2double (bool* t){
-		double v = 0.0;
-		for (int i = 0; i < len; ++i) {
-			if (not t[i]) continue;
-			v += pow(2, len - i - 1);
+			// cout << members[i];
 		}
-
-		return lmin + v / pow(10, accuracy);
 	}
 
 	bool* getMember(int index){
@@ -43,8 +36,40 @@ public:
 
 	void insert(bool* element, int position) {
 		position *= dim;
-		for (int i = 0; i < dimension; ++i) 
+		for (int i = 0; i < dim; ++i) 
 			members[position + i] = element[i];
+	}
+
+	void setApt(double val, int index){
+		aptitude[index] = val;
+	}
+
+	double* getAllApt (){
+		return aptitude;
+	}
+
+	double getApt (int index){
+		return aptitude[index];
+	}
+
+	int getMaxAptIndex(){
+		return maxx(aptitude, pop_size);
+	}
+
+	int getMinAptIndex(){
+		return minn(aptitude, pop_size);
+	}
+
+	void show(){
+		cout << "================================\n";
+		cout << "        P o p u l a t i o n\n";
+		cout << "================================\n";
+		for (int i = 0; i < len; ++i) {
+			cout << members[i];
+			if (i % dim == 0)
+				cout << "\n------------------------\n";
+		}
+		cout << "\n================================\n";
 	}
 	
 };
@@ -80,29 +105,6 @@ public:
 		}
 	} ;
 
-	~Population() {
-		if (dpopulation != NULL)
-			delete[] dpopulation;
-	};
-
-	void show(){
-		for (int i = 0; i < pop_size * len * dimension; ++i) {
-			cout << bpopulation[i];
-			if (i % len == 0)
-				cout << " ";
-
-			if (i % (len * dimension) == 0)
-				cout << endl;
-		}
-
-	}
-
-	void gen2fen(double* x, bool* t){
-		for (int i = 0; i < dimension; ++i){
-			dpopulation[i] = bin2double(t, i);
-		}
-	}
-
 	void init(int lmn, int lmx){
 		lmin = lmn;
 		lmax = lmx;
@@ -112,26 +114,29 @@ public:
 			L = (int)(log2(L * (lmax - lmin))  + 0.7);
 			len = L;
 
+			// bits population
 			bpopulation = Binary(dimension * L, pop_size);
+			// bpopulation.show();
+
+			// aux for fotness evaluation
 			double* tmp = new double[dimension];
+			bool* bin_tmp;
 
 			for (int i = 0; i < pop_size; ++i){
-				gen2fen(tmp, bpopulation.getMember(i));
-				aptitude[i] = testFunction(tmp, dimension, 0);
+				bin_tmp = bpopulation.getMember(i);
+				gen2fen(tmp, bin_tmp, len, lmn, lmx, dimension, accuracy);
+				bpopulation.setApt(testFunction(tmp, dimension, FUNC), i);
 			}
+
+			delete[] tmp;
+			delete[] bin_tmp;
 			
 			return;
 		}
 	}
 
 	bool* getBinaryElement(int index){
-		bool* item = new bool[len * dimension];
-		index *= len * dimension;
-
-		for (int i = 0; i < len * dimension; ++i)
-			item[i] = bpopulation[index + i];
-
-		return item;
+		return bpopulation.getMember(index);
 	}
 
 	double* getDoubleElement(){
@@ -139,15 +144,64 @@ public:
 	}
 
 	double getAptitude(int index){
-		return aptitude[index];
+		return bpopulation.getApt(index);
 	}
 
 	double* getAllApt(){
-		return aptitude;
+		return bpopulation.getAllApt();
 	}
 
 	int getLen(){
 		return len;
+	}
+
+	int getDim(){
+		return dimension;
+	}
+
+	int getPopSize(){
+		return pop_size;
+	}
+
+	void show(){
+		bpopulation.show();
+	}
+
+	int getMemberSize(){
+		return dimension * len;
+	}
+
+	double getLmin(){
+		return lmin;
+	}
+
+	double getLmax(){
+		return lmax;
+	}
+
+	int getAcc(){
+		return accuracy;
+	}
+
+	void replace(Binary children){
+		// elitism
+		int imin = bpopulation.getMinAptIndex();
+		cout << evals << "\t" << bpopulation.getApt(imin)
+			 << "\t" << mean(bpopulation.getAllApt(), pop_size)
+			 << endl;
+		bpopulation.insert(bpopulation.getMember(imin), 0);
+		bpopulation.setApt(bpopulation.getApt(imin), 0);
+
+		// replace entire generation
+		bool* c;
+		for (int i = 1; i < pop_size; ++i) {
+			c = children.getMember(i);
+			bpopulation.insert(c, i);
+			bpopulation.setApt(children.getApt(i), i);
+
+			delete[] c;
+		}
+
 	}
 
 	

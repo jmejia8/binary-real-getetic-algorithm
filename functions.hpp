@@ -22,6 +22,7 @@ double multimodal(double* x, int dim){
 }
 
 double testFunction(double* x, int dim, int func){
+	++evals;
 	if (func == 0)
 		return sphere(x, dim);
 	if (func == 1)

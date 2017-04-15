@@ -1,0 +1,539 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pop",
+				"pop_size\t(population.hpp)"
+			],
+			[
+				"retu",
+				"return"
+			],
+			[
+				"loca",
+				"location\t: Location Window"
+			],
+			[
+				"wr",
+				"write"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"fun",
+				"funct\tRegular function"
+			],
+			[
+				"us",
+				"using\tnamespace"
+			],
+			[
+				"rand",
+				"I-random\tinc"
+			],
+			[
+				"iostr",
+				"I-iostream\tinc"
+			],
+			[
+				"ios",
+				"ios\tios"
+			],
+			[
+				"row",
+				"row"
+			],
+			[
+				"mysqfec",
+				"mysql_fetch_array"
+			],
+			[
+				"sq",
+				"sql"
+			],
+			[
+				"in",
+				"intval"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"ret",
+				"ret0\treturn false"
+			],
+			[
+				"rd_",
+				"rd_users"
+			],
+			[
+				"jso",
+				"json_encode"
+			],
+			[
+				"print",
+				"printf"
+			],
+			[
+				"prin",
+				"printer_list"
+			],
+			[
+				"sta",
+				"status"
+			],
+			[
+				"mysqfe",
+				"mysql_fetch_array"
+			],
+			[
+				"mysq",
+				"mysql_query"
+			],
+			[
+				"mys",
+				"mysql_close"
+			],
+			[
+				"stat",
+				"stats"
+			],
+			[
+				"ca",
+				"canvas"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"key",
+				"keydown"
+			],
+			[
+				"an",
+				"angulo"
+			],
+			[
+				"im",
+				"img"
+			],
+			[
+				"ba",
+				"balas"
+			],
+			[
+				"img",
+				"img_balas"
+			],
+			[
+				"dibu",
+				"dibujarCanon"
+			],
+			[
+				"can",
+				"cannons"
+			],
+			[
+				"s",
+				"speed"
+			],
+			[
+				"pad",
+				"padding-right"
+			],
+			[
+				"margi",
+				"margin-bottom"
+			],
+			[
+				"dil",
+				"display"
+			],
+			[
+				"texal",
+				"text-align"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"f",
+				"font-weight"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"marg",
+				"margin"
+			],
+			[
+				"bold",
+				"bolder"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"php",
+				"phpinfo"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 152.0,
+		"last_filter": "instal",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"side",
+				"View: Toggle Side Bar"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"shel",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"ssshe",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"she",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"sshe",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"aate",
+				"Set Syntax: LaTeX"
+			]
+		],
+		"width": 458.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/jmejia/develop/repositorios/genetic-algorithm-ea"
+	],
+	"file_history":
+	[
+		"/home/jmejia/Descargas/UnrealEngine-release/Engine/Build/BatchFiles/Linux/README.md",
+		"/home/jmejia/develop/repositorios/genetic-algorithm-ea/README.md",
+		"/home/jmejia/develop/repositorios/genetic-algorithm-ea/.gitignore",
+		"/home/jmejia/Escritorio/tmp.py",
+		"/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-24",
+		"/home/jmejia/Escritorio/docu.html",
+		"/home/jmejia/Descargas/panda3d-1.9.4/README.md",
+		"/var/cache/dnf/rpmfusion-nonfree-updates-499a581200a0988c/packages/rpmfusion-nonfree-release-24-3.noarch.rpm",
+		"/home/jmejia/Descargas/Telegram Desktop/example.py",
+		"/opt/lampp/htdocs/www/red_social/common/status.php",
+		"/opt/lampp/htdocs/www/pregunta/connect.php",
+		"/home/jmejia/.bashrc",
+		"/opt/lampp/htdocs/www/red_social/index.php",
+		"/opt/lampp/htdocs/www/red_social/js/views.js",
+		"/opt/lampp/htdocs/www/red_social/common/get_comments.php",
+		"/opt/lampp/htdocs/www/red_social/common/config.php",
+		"/home/jmejia/Documentos/universidad/maestria/ia2/jesus-mejia-2.7.sen",
+		"/opt/lampp/htdocs/www/pregunta/includes/head.php",
+		"/home/jmejia/Documentos/universidad/maestria/analisis_de_algoritmos/templado_simulado_discreto/includes.h",
+		"/home/jmejia/Documentos/universidad/maestria/analisis_de_algoritmos/templado_simulado_discreto/xanneal",
+		"/home/jmejia/Documentos/programas/weka-3-8-0/README",
+		"/home/jmejia/.zshrc",
+		"/opt/lampp/htdocs/www/red_social/common/funciones.php",
+		"/opt/lampp/htdocs/www/red_social/.htaccess",
+		"/opt/lampp/htdocs/www/red_social/common/error404.php",
+		"/opt/lampp/htdocs/www/redsocial/.htaccess",
+		"/opt/lampp/htdocs/www/redsocial/common/config.php",
+		"/opt/lampp/htdocs/www/redsocial/index.php",
+		"/opt/lampp/htdocs/www/redsocial/profile.php",
+		"/home/jmejia/.cache/.fr-Mvehwn/index.php",
+		"/opt/lampp/htdocs/www/redsocial/common/banner_profile.php",
+		"/opt/lampp/htdocs/www/redsocial/common/header.php",
+		"/opt/lampp/htdocs/www/redsocial/common/status.php",
+		"/opt/lampp/htdocs/www/redsocial/common/aside_content.php",
+		"/opt/lampp/htdocs/www/juegohtml5/terminado/js/game.js",
+		"/opt/lampp/htdocs/www/juegohtml5/terminado/index.html",
+		"/opt/lampp/htdocs/www/redsocial/js/views.js",
+		"/opt/lampp/htdocs/www/redsocial/css/style.css",
+		"/opt/lampp/htdocs/www/redsocial/index.html",
+		"/home/jmejia/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/jmejia/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/jmejia/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/opt/lampp/htdocs/www/prueba/index.php"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" ",
+			"delete",
+			"bin2Double",
+			"REPRESENTATION",
+			" \n",
+			"float",
+			"d]",
+			"main",
+			"Binary",
+			"p2",
+			"_POST",
+			"data",
+			"_POST",
+			"         ",
+			"        ",
+			"       ",
+			"      ",
+			"     ",
+			"    ",
+			"y",
+			" )",
+			"animar",
+			"false",
+			"true",
+			"||",
+			"true",
+			"speed",
+			"tank",
+			"||",
+			"700",
+			"300",
+			"balas",
+			"cannons[0]",
+			"tmp",
+			"y",
+			"0",
+			"-",
+			"+",
+			"cannons",
+			"cannons[0].x",
+			"cannons",
+			"50",
+			"context",
+			"tank",
+			"speed",
+			"10",
+			"key",
+			"100",
+			"tank",
+			"bg_imagen",
+			"bgImage",
+			"64",
+			";",
+			"setsuspensionStiffness",
+			"serRollInfluence",
+			"[",
+			"rd_d_",
+			"rd_r_",
+			"rd_a_s_",
+			"rd_e_",
+			"rd_an_",
+			"rd_p_",
+			"rd_0",
+			"rd_a_s_",
+			",",
+			"#",
+			"\n",
+			"  ",
+			"   ",
+			"  ",
+			"    ",
+			"#",
+			"h1",
+			"src",
+			"section",
+			"article",
+			"64",
+			"comment",
+			"comm"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "gentic-algorithm-ia.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"/opt/lampp/htdocs/www/courses_page/courses.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 157.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
