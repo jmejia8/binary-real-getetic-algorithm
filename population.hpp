@@ -163,8 +163,22 @@ public:
 		return pop_size;
 	}
 
-	void show(){
-		bpopulation.show();
+	void show(int index){
+		bool* number = new bool[len];
+		bool* bin_vector = bpopulation.getMember(index);
+
+		cout << "[" ;
+		for (int i = 0; i < dimension; ++i){
+			for (int j = 0, k = i * len; j < len; ++j){
+				number[j] =  bin_vector[k + j];
+			}
+			cout << lmin + bin2double(number, len) / pow(10, accuracy) 
+				 << ", ";
+		}
+		cout << "]"
+			 << "\t f(x) = " << bpopulation.getApt(index) << endl;
+		
+		delete[] bin_vector, number;
 	}
 
 	int getMemberSize(){
@@ -186,9 +200,10 @@ public:
 	void replace(Binary children){
 		// elitism
 		int imin = bpopulation.getMinAptIndex();
-		cout << evals << "\t" << bpopulation.getApt(imin)
-			 << "\t" << mean(bpopulation.getAllApt(), pop_size)
-			 << endl;
+		// cout << evals << "\t" << bpopulation.getApt(imin)
+		// 	 << "\t" << mean(bpopulation.getAllApt(), pop_size)
+		// 	 << endl;
+		show(imin);
 		bpopulation.insert(bpopulation.getMember(imin), 0);
 		bpopulation.setApt(bpopulation.getApt(imin), 0);
 

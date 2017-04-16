@@ -68,13 +68,10 @@ void gen2fen(double* x,
 			 double accuracy)
 {
 	bool* number = new bool[bin_len];
-	// cout << "ZZZZ  " << bin_len << endl;
 	for (int i = 0; i < dimension; ++i){
 		for (int j = 0, k = i * bin_len; j < bin_len; ++j){
 			number[j] =  bin_vector[k + j];
-			// cout << number[j];
 		}
-		// cout << "\n<<<<<<\n";
 		x[i] = lmin + bin2double(number, bin_len) / pow(10, accuracy);
 		// cout << x[i] << ", ";
 	}
