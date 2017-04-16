@@ -23,28 +23,26 @@
 
 int main(int argc, char const *argv[])
 {
-	int pop_size 	= 10,
+	int pop_size 	= 100,
 		dim 	 	= 10,
 		maxEvals	= 100000,
-		maxIters   = 15000;
-	double crossP	= 0.9,
-		   mutationP= 0.1;
+		maxIters   = 1000;
+	double crossP	= 1.0,
+		   mutationP= 0.5;
 
 	Population population(REPR, pop_size, dim, 3);
 	population.init(-10, 10);
+	TwoPointCrossover cross;
 	// population.show();
 
 	int* parents = new int[pop_size];
 	for (int t = 0; t < maxIters and evals < maxEvals; ++t){
+		// cout << "iter " << t << endl;
 		if (REPR == 0) {
 			// population.show();
-			// cout << "perro" << endl;
 			stocUnivSelect(population.getAllApt(), parents, pop_size);
-			// cout << "gato" << endl;
-			TwoPointCrossover cross(population, parents, crossP);
-			// cout << "rata" << endl;
+			cross = TwoPointCrossover(population, parents, crossP, mutationP);
 			population.replace(cross.getChildren());
-			// cout << "toro" << endl;
 		}
 
 	}

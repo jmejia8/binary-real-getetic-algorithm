@@ -81,3 +81,13 @@ void gen2fen(double* x,
 
 	// cout << endl;
 }
+
+void printVector(bool* v, int size, int point1, int point2){
+	for (int i = 0; i < size; ++i) {
+		if (i == point1 or i == point2)
+			cout << "|";
+		cout << v[i];
+	}
+
+	cout << "\n===============================" << endl ;
+}

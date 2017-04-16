@@ -1,6 +1,6 @@
 void stocUnivSelect(double* aptitude, int* members, int size) {
 		int k = 0, j;
-		double ma = 2 * (aptitude[maxx(aptitude, size)]);
+		double ma = 1.001 * (aptitude[maxx(aptitude, size)]);
 
 		double expectVal = ma - mean(aptitude, size);
 
@@ -25,14 +25,22 @@ void stocUnivSelect(double* aptitude, int* members, int size) {
 		// 	cout << members[i] << "\t" << aptitude[i]
 		// 		 << "\t \t" << (ma-aptitude[i]) / expectVal << endl;
 		// }
+		// cout << "================" << endl;
 	
+}
+
+void simpleMutation(bool* c1, int size, double mutationP){
+	if (random(0, 1) <= mutationP) {
+		int k = randint() % (size - 1);
+		c1[k] = not c1[k];
+	}
 }
 
 class TwoPointCrossover
 {
 private:
 	Binary children;
-	double prob;
+	double prob, prob_mut;
 	int* parents;
 	int pop_size;
 	int member_size;
@@ -54,21 +62,30 @@ private:
 			c2[i] = p1[i];
 		}
 
+		simpleMutation(c1, member_size, prob);
+		simpleMutation(c2, member_size, prob);
+
+
 		children.insert(c1, 2*i);
 		children.insert(c2, 2*i + 1);
 		delete[] c1, c2;
 	}
 
 	void crossover(Population population){
-		int len = pop_size / 2;
+		int len = pop_size / 2, j, k;
 		bool *p1, *p2;
 		double* x = new double[population.getDim()];
 
 		for (int i = 0; i < len; ++i) {
-			p1 = population.getBinaryElement(2*i);
-			p2 = population.getBinaryElement(2*i + 1);
+			j = parents[2*i];
+			k = parents[2*i + 1];
+			p1 = population.getBinaryElement(j);
+			p2 = population.getBinaryElement(k);
 			
 			if (random(0, 1) > prob){
+				simpleMutation(p1, member_size, prob);
+				simpleMutation(p2, member_size, prob);
+
 				children.insert(p1, 2*i);
 				children.insert(p2, 2*i + 1);
 			}else{
@@ -79,7 +96,6 @@ private:
 
 			p1 = children.getMember(2*i);
 			p2 = children.getMember(2*i + 1);
-
 			gen2fen(x, p1, population.getLen(),
 						   population.getLmin(),
 						   population.getLmax(),
@@ -98,12 +114,12 @@ private:
 
 		}
 		
-		delete[] x;			
-	}
+	delete[] x;			
+}
 
 public:
-	TwoPointCrossover(Population population, int* parents, double prob):
-		parents(parents), prob(prob)
+	TwoPointCrossover(Population population, int* parents, double prob, double mutationP):
+		parents(parents), prob(prob), prob_mut(mutationP)
 	{
 		pop_size = population.getPopSize();
 		member_size = population.getMemberSize();
@@ -111,6 +127,8 @@ public:
 
 		crossover(population);
 	};
+
+	TwoPointCrossover() {};
 
 
 	Binary getChildren(){
