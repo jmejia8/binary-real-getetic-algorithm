@@ -20,13 +20,19 @@ void stocUnivSelect(double* aptitude, int* members, int size) {
 			members[j] = members[i];
 			members[i] = k;
 		}
+}
 
-		// for (int i = 0; i < size; ++i) {
-		// 	cout << members[i] << "\t" << aptitude[i]
-		// 		 << "\t \t" << (ma-aptitude[i]) / expectVal << endl;
-		// }
-		// cout << "================" << endl;
-	
+void deterBinTournament(double* aptitude, int* members, int size){
+	int counter = 0, i, j;
+	while(counter >= size) {
+	    i = randint() % (size - 1);
+	    j = randint() % (size - 1);
+
+	    if (aptitude[i] > aptitude[j])
+			members[counter++] = i;
+	    else
+			members[counter++] = j;
+	}
 }
 
 void simpleMutation(bool* c1, int size, double mutationP){
@@ -134,5 +140,62 @@ public:
 	Binary getChildren(){
 		return children;
 	}
+	
+};
+
+class SBX
+{
+	int* parents, pop_size, dim;
+	double crossP, mutationP;
+	Real children;
+
+	double beta(double u, double eta){
+		if (u <= 0.5)
+			return pow(2 * u, 1.0 / (eta - 1));
+
+		return pow(2 - 2 * u, -1.0 / (eta - 1));
+	}
+
+	void mixing(double* p1, double* p2, double* c1, double* c2){
+		double u, b;
+		for (int i = 0; i < dim; ++i) {
+			u = random(0, 1);
+			b = beta(u, 2);
+			c1[i] = 0.5 * (p1[i] + p2[i] - b * (p2[i] - p1[i]));
+			c2[i] = 0.5 * (p1[i] + p2[i] + b * (p2[i] - p1[i]));
+		}
+	}
+
+	void crossover(Population population){
+		int n = pop_size / 2;
+		double* p1, *p2, *c1, *c2;
+		for (int i = 0; i < n; ++i) {
+			p1 = population.getDoubleElement(parents[2*i]);
+			p2 = population.getDoubleElement(parents[2*i + 1]);
+
+			if (random(0, 1) > crossP) {
+				children.insert(p1, 2*i);
+				children.insert(p2, 2*i + 1);
+			}else{
+				mixing(p1, p2, c1, c2);
+				children.insert(c1, 2*i);
+				children.insert(c2, 2*i + 1);
+			}
+			
+			delete[] p1, p2;
+		}
+
+		delete[] c1, c2;
+	}
+public:
+	SBX(Population population, int* p, double c, double m) :
+		parents(p), crossP(c), mutationP(m)
+	{
+		dim = population.getDim();
+		pop_size = population.getPopSize();
+		children = Real(dim, pop_size);
+		SBX::crossover(population);
+	};
+
 	
 };

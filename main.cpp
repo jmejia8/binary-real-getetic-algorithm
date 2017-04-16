@@ -32,20 +32,30 @@ int main(int argc, char const *argv[])
 
 	Population population(REPR, pop_size, dim, ACCURACY);
 	population.init(-5, 5);
-	TwoPointCrossover cross;
-
 	int* parents = new int[pop_size];
+
+	if (REPR == 0) {
+		TwoPointCrossover* cross;
+		for (int t = 0; t < maxIters and evals < maxEvals; ++t){
+			cout << "====================================" << endl;
+			cout << ">>>>> Gen " << t << "\t Evals.: " << evals << endl;
+
+			stocUnivSelect(population.getAllApt(), parents, pop_size);
+			cross = new TwoPointCrossover(population, parents, crossP, mutationP);
+			population.replace(cross->getChildren());
+			delete cross;
+		}
+		return 0;
+	}
+
+
 	for (int t = 0; t < maxIters and evals < maxEvals; ++t){
 		cout << "====================================" << endl;
 		cout << ">>>>> Gen " << t << "\t Evals.: " << evals << endl;
-		if (REPR == 0) {
-			stocUnivSelect(population.getAllApt(), parents, pop_size);
-			cross = TwoPointCrossover(population, parents, crossP, mutationP);
-			population.replace(cross.getChildren());
-		}
+		deterBinTournament(population.getAllApt(), parents, pop_size);
+		
 
 	}
-
 
 	return 0;
 }

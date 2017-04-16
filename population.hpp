@@ -1,83 +1,5 @@
-class Binary
-{
-private:
-	int dim, pop_size, len;
-
-	bool* members = NULL;
-	double* aptitude = NULL;
-public:
-	Binary(int d, int ps) : dim(d), pop_size(ps){
-		len = d * pop_size;
-		members = new bool[len];
-		aptitude = new double[pop_size];
-		Binary::init();
-	};
-
-	Binary() {
-		members = NULL;
-		aptitude = NULL;
-	};
-
-	void init(){
-		for (int i = 0; i < len; ++i){
-			members[i] = randint() % 2;
-			// cout << members[i];
-		}
-	}
-
-	bool* getMember(int index){
-		bool* t = new bool[dim];
-		index *= dim;
-		for (int i = 0; i < dim; ++i)
-			t[i] = members[index + i ];
-
-		return t;
-	}
-
-	void insert(bool* element, int position) {
-		position *= dim;
-		for (int i = 0; i < dim; ++i) 
-			members[position + i] = element[i];
-	}
-
-	void setApt(double val, int index){
-		aptitude[index] = val;
-	}
-
-	double* getAllApt (){
-		return aptitude;
-	}
-
-	double getApt (int index){
-		return aptitude[index];
-	}
-
-	int getMaxAptIndex(){
-		return maxx(aptitude, pop_size);
-	}
-
-	int getMinAptIndex(){
-		return minn(aptitude, pop_size);
-	}
-
-	void show(){
-		cout << "================================\n";
-		cout << "        P o p u l a t i o n\n";
-		cout << "================================\n";
-		for (int i = 0; i < len; ++i) {
-			cout << members[i];
-			if (i % dim == 0)
-				cout << "\n------------------------\n";
-		}
-		cout << "\n================================\n";
-	}
-
-	void close(){
-		delete[] members, aptitude;
-	}
-	
-};
-
+#include "classes/Binary.hpp"
+#include "classes/Real.hpp"
 
 class Population
 {
@@ -86,8 +8,8 @@ private:
 	int representation;
 	int pop_size;
 	int dimension;
-	Binary bpopulation;
-	double* dpopulation = NULL;
+	Binary binaryPop;
+	Real realPop;
 	int accuracy;
 	int len;
 	double lmin, lmax;
@@ -99,15 +21,7 @@ public:
 		pop_size (size), 
 		dimension (d), 
 		accuracy (acc) 
-	{
-		switch (repr){
-			case 1:
-				dpopulation = new double[d * size];
-				break;
-			default:
-				break;
-		}
-	} ;
+	{} ;
 
 	void init(int lmn, int lmx){
 		lmin = lmn;
@@ -119,17 +33,17 @@ public:
 			len = L;
 
 			// bits population
-			bpopulation = Binary(dimension * L, pop_size);
-			// bpopulation.show();
+			binaryPop = Binary(dimension * L, pop_size);
+			// binaryPop.show();
 
 			// aux for fotness evaluation
 			double* tmp = new double[dimension];
 			bool* bin_tmp;
 
 			for (int i = 0; i < pop_size; ++i){
-				bin_tmp = bpopulation.getMember(i);
+				bin_tmp = binaryPop.getMember(i);
 				gen2fen(tmp, bin_tmp, len, lmn, lmx, dimension, accuracy);
-				bpopulation.setApt(testFunction(tmp, dimension, FUNC), i);
+				binaryPop.setApt(testFunction(tmp, dimension, FUNC), i);
 			}
 
 			delete[] tmp;
@@ -137,22 +51,26 @@ public:
 			
 			return;
 		}
+
+		if (representation == 1) {
+			realPop = Real(dimension, pop_size, lmin, lmax);
+		}
 	}
 
 	bool* getBinaryElement(int index){
-		return bpopulation.getMember(index);
+		return binaryPop.getMember(index);
 	}
 
-	double* getDoubleElement(){
-		return NULL;
+	double* getDoubleElement(int index){
+		return realPop.getMember(index);
 	}
 
 	double getAptitude(int index){
-		return bpopulation.getApt(index);
+		return binaryPop.getApt(index);
 	}
 
 	double* getAllApt(){
-		return bpopulation.getAllApt();
+		return binaryPop.getAllApt();
 	}
 
 	int getLen(){
@@ -169,7 +87,7 @@ public:
 
 	void show(int index){
 		bool* number = new bool[len];
-		bool* bin_vector = bpopulation.getMember(index);
+		bool* bin_vector = binaryPop.getMember(index);
 
 		cout << "[" ;
 		for (int i = 0; i < dimension; ++i){
@@ -180,7 +98,7 @@ public:
 				 << ", ";
 		}
 		cout << "]"
-			 << "\t f(x) = " << bpopulation.getApt(index) << endl;
+			 << "\t f(x) = " << binaryPop.getApt(index) << endl;
 		
 		delete[] bin_vector, number;
 	}
@@ -203,11 +121,11 @@ public:
 
 	void replace(Binary children){
 		// elitism
-		int imin = bpopulation.getMinAptIndex();
+		int imin = binaryPop.getMinAptIndex();
 		show(imin);
-		bool* tmp = bpopulation.getMember(imin);
-		bpopulation.insert(tmp, 0);
-		bpopulation.setApt(bpopulation.getApt(imin), 0);
+		bool* tmp = binaryPop.getMember(imin);
+		binaryPop.insert(tmp, 0);
+		binaryPop.setApt(binaryPop.getApt(imin), 0);
 
 		delete[] tmp;
 
@@ -215,8 +133,8 @@ public:
 		bool* c;
 		for (int i = 1; i < pop_size; ++i) {
 			c = children.getMember(i);
-			bpopulation.insert(c, i);
-			bpopulation.setApt(children.getApt(i), i);
+			binaryPop.insert(c, i);
+			binaryPop.setApt(children.getApt(i), i);
 
 			delete[] c;
 		}
