@@ -9,11 +9,11 @@
 
 #ifndef ACCURACY
 // 3 digits
-#define ACCURACY 3 
+#define ACCURACY 3
 #endif
 
 #ifndef FUNC
-#define FUNC 0
+#define FUNC 1
 #endif
 
 #include "functions.hpp"
@@ -27,11 +27,11 @@ int main(int argc, char const *argv[])
 		dim 	 	= 10,
 		maxEvals	= 100000,
 		maxIters   = 1000;
-	double crossP	= 0.7,
-		   mutationP= 0.5;
+	double crossP	= 1.0,
+		   mutationP= 0.3;
 
-	Population population(REPR, pop_size, dim, 3);
-	population.init(-10, 10);
+	Population population(REPR, pop_size, dim, ACCURACY);
+	population.init(-5, 5);
 	TwoPointCrossover cross;
 
 	int* parents = new int[pop_size];

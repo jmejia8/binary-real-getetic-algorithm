@@ -71,6 +71,10 @@ public:
 		}
 		cout << "\n================================\n";
 	}
+
+	void close(){
+		delete[] members, aptitude;
+	}
 	
 };
 
@@ -200,12 +204,12 @@ public:
 	void replace(Binary children){
 		// elitism
 		int imin = bpopulation.getMinAptIndex();
-		// cout << evals << "\t" << bpopulation.getApt(imin)
-		// 	 << "\t" << mean(bpopulation.getAllApt(), pop_size)
-		// 	 << endl;
 		show(imin);
-		bpopulation.insert(bpopulation.getMember(imin), 0);
+		bool* tmp = bpopulation.getMember(imin);
+		bpopulation.insert(tmp, 0);
 		bpopulation.setApt(bpopulation.getApt(imin), 0);
+
+		delete[] tmp;
 
 		// replace entire generation
 		bool* c;
@@ -216,6 +220,8 @@ public:
 
 			delete[] c;
 		}
+
+		children.close();
 
 	}
 
