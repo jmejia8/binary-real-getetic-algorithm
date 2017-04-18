@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #ifndef REPR
-#define REPR 0
+#define REPR 1
 #endif
 
 #ifndef ACCURACY
@@ -13,7 +13,7 @@
 #endif
 
 #ifndef FUNC
-#define FUNC 1
+#define FUNC 0
 #endif
 
 #include "functions.hpp"
@@ -52,7 +52,15 @@ int main(int argc, char const *argv[])
 	for (int t = 0; t < maxIters and evals < maxEvals; ++t){
 		cout << "====================================" << endl;
 		cout << ">>>>> Gen " << t << "\t Evals.: " << evals << endl;
+
 		deterBinTournament(population.getAllApt(), parents, pop_size);
+		// cout << "perro" << endl;
+		SBX* cross = new SBX(population, parents, crossP, mutationP);
+		// cout << "gato" << endl;
+		population.replaceDouble(cross->getChildren());
+		// cout << "toro" << endl;
+
+		delete cross;
 		
 
 	}

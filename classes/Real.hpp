@@ -49,10 +49,14 @@ public:
 
 	void insert(double* element, int position) {
 		position *= dim;
-		for (int i = 0; i < dim; ++i) 
+		// cout << "insert 0" << endl;
+		for (int i = 0; i < dim; ++i) {
 			members[position + i] = element[i];
-		
-		setApt(testFunction(element, dim, FUNC), position);
+		}
+
+		// cout << "insert 1" << element[dim / 2] << "  " << position << endl;
+		setApt(testFunction(element, dim, FUNC), position / dim);
+		// cout << "insert 2" << endl;
 
 	}
 

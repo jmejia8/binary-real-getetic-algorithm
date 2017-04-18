@@ -70,7 +70,9 @@ public:
 	}
 
 	double* getAllApt(){
-		return binaryPop.getAllApt();
+		if (representation == 0)
+			return binaryPop.getAllApt();
+		return realPop.getAllApt();
 	}
 
 	int getLen(){
@@ -101,6 +103,18 @@ public:
 			 << "\t f(x) = " << binaryPop.getApt(index) << endl;
 		
 		delete[] bin_vector, number;
+	}
+
+	void showDouble(int index){
+		double* tmp = realPop.getMember(index);
+		for (int i = 0; i < dimension; ++i) {
+			cout << tmp[i] << ", ";
+		}
+
+		delete[] tmp;
+
+		cout << "\t f(x) = " << realPop.getApt(index) << "\t" << mean(realPop.getAllApt(), pop_size) << endl;
+
 	}
 
 	int getMemberSize(){
@@ -141,6 +155,28 @@ public:
 
 		children.close();
 
+	}
+
+	void replaceDouble(Real children){
+		// elitism
+		int imin = realPop.getMinAptIndex();
+		showDouble(imin);
+		double* c = realPop.getMember(imin);
+		realPop.insert(c, 0);
+		realPop.setApt(realPop.getApt(imin), 0);
+
+
+		delete[] c;
+
+		// replace entire generation
+		for (int i = 1; i < pop_size; ++i) {
+			c = children.getMember(i);
+			realPop.insert(c, i);
+			realPop.setApt(children.getApt(i), i);
+
+			delete[] c;
+		}
+		children.close();
 	}
 
 	

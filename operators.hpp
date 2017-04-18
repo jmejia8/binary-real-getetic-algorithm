@@ -24,11 +24,11 @@ void stocUnivSelect(double* aptitude, int* members, int size) {
 
 void deterBinTournament(double* aptitude, int* members, int size){
 	int counter = 0, i, j;
-	while(counter >= size) {
+	while(counter <= size) {
 	    i = randint() % (size - 1);
 	    j = randint() % (size - 1);
 
-	    if (aptitude[i] > aptitude[j])
+	    if (aptitude[i] < aptitude[j])
 			members[counter++] = i;
 	    else
 			members[counter++] = j;
@@ -39,6 +39,13 @@ void simpleMutation(bool* c1, int size, double mutationP){
 	if (random(0, 1) <= mutationP) {
 		int k = randint() % (size - 1);
 		c1[k] = not c1[k];
+	}
+}
+
+void uniformMutation(double* c1, int size, double mutationP, double a, double b){
+	if (random(0, 1) <= mutationP) {
+		int k = randint() % (size - 1);
+		c1[k] = random(a, b);
 	}
 }
 
@@ -146,7 +153,7 @@ public:
 class SBX
 {
 	int* parents, pop_size, dim;
-	double crossP, mutationP;
+	double crossP, mutationP, lmin, lmax;
 	Real children;
 
 	double beta(double u, double eta){
@@ -160,26 +167,36 @@ class SBX
 		double u, b;
 		for (int i = 0; i < dim; ++i) {
 			u = random(0, 1);
-			b = beta(u, 2);
+			b = beta(u, 5);
 			c1[i] = 0.5 * (p1[i] + p2[i] - b * (p2[i] - p1[i]));
 			c2[i] = 0.5 * (p1[i] + p2[i] + b * (p2[i] - p1[i]));
 		}
+
+		uniformMutation(c1, mutationP, dim, lmin, lmax);
 	}
 
 	void crossover(Population population){
 		int n = pop_size / 2;
-		double* p1, *p2, *c1, *c2;
+		double* p1, *p2,
+			*c1 = new double[dim],
+			*c2 = new double[dim];
+		
 		for (int i = 0; i < n; ++i) {
 			p1 = population.getDoubleElement(parents[2*i]);
 			p2 = population.getDoubleElement(parents[2*i + 1]);
 
+			// cout << "cross 1" << endl;
 			if (random(0, 1) > crossP) {
 				children.insert(p1, 2*i);
 				children.insert(p2, 2*i + 1);
 			}else{
+				// cout << "cross 2" << endl;
 				mixing(p1, p2, c1, c2);
+				// cout << "cross 3" << endl;
 				children.insert(c1, 2*i);
+				// cout << "cross 4 >>>> " << 2*i + 1 << endl;
 				children.insert(c2, 2*i + 1);
+				// cout << "cross 5" << endl;
 			}
 			
 			delete[] p1, p2;
@@ -193,9 +210,17 @@ public:
 	{
 		dim = population.getDim();
 		pop_size = population.getPopSize();
+		lmin = population.getLmin();
+		lmax = population.getLmax();
 		children = Real(dim, pop_size);
+		// cout << "sbx" << endl;
 		SBX::crossover(population);
+		// cout << "sbx 1" << endl;
 	};
+
+	Real getChildren(){
+		return children;
+	}
 
 	
 };
