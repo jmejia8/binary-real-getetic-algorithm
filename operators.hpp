@@ -166,10 +166,15 @@ class SBX
 	void mixing(double* p1, double* p2, double* c1, double* c2){
 		double u, b;
 		for (int i = 0; i < dim; ++i) {
+			if (random(0, 1) < 0.5){
+				c1[i] = p1[i];
+				c2[i] = p2[i];
+				continue;
+			}
 			u = random(0, 1);
 			b = beta(u, 5);
-			c1[i] = 0.5 * (p1[i] + p2[i] - b * (p2[i] - p1[i]));
-			c2[i] = 0.5 * (p1[i] + p2[i] + b * (p2[i] - p1[i]));
+			c1[i] = 0.5 * (p1[i] + p2[i] + b * (p2[i] - p1[i]));
+			c2[i] = 0.5 * (p1[i] + p2[i] - b * (p2[i] - p1[i]));
 		}
 
 		uniformMutation(c1, mutationP, dim, lmin, lmax);
@@ -185,18 +190,13 @@ class SBX
 			p1 = population.getDoubleElement(parents[2*i]);
 			p2 = population.getDoubleElement(parents[2*i + 1]);
 
-			// cout << "cross 1" << endl;
 			if (random(0, 1) > crossP) {
 				children.insert(p1, 2*i);
 				children.insert(p2, 2*i + 1);
 			}else{
-				// cout << "cross 2" << endl;
 				mixing(p1, p2, c1, c2);
-				// cout << "cross 3" << endl;
 				children.insert(c1, 2*i);
-				// cout << "cross 4 >>>> " << 2*i + 1 << endl;
 				children.insert(c2, 2*i + 1);
-				// cout << "cross 5" << endl;
 			}
 			
 			delete[] p1, p2;
@@ -213,9 +213,7 @@ public:
 		lmin = population.getLmin();
 		lmax = population.getLmax();
 		children = Real(dim, pop_size);
-		// cout << "sbx" << endl;
 		SBX::crossover(population);
-		// cout << "sbx 1" << endl;
 	};
 
 	Real getChildren(){

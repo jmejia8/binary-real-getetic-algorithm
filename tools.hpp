@@ -73,10 +73,8 @@ void gen2fen(double* x,
 			number[j] =  bin_vector[k + j];
 		}
 		x[i] = lmin + bin2double(number, bin_len) / pow(10, accuracy);
-		// cout << x[i] << ", ";
 	}
 
-	// cout << endl;
 }
 
 void printVector(bool* v, int size, int point1, int point2){

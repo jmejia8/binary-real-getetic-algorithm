@@ -54,11 +54,8 @@ int main(int argc, char const *argv[])
 		cout << ">>>>> Gen " << t << "\t Evals.: " << evals << endl;
 
 		deterBinTournament(population.getAllApt(), parents, pop_size);
-		// cout << "perro" << endl;
 		SBX* cross = new SBX(population, parents, crossP, mutationP);
-		// cout << "gato" << endl;
 		population.replaceDouble(cross->getChildren());
-		// cout << "toro" << endl;
 
 		delete cross;
 		
